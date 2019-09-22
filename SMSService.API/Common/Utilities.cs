@@ -18,12 +18,12 @@ namespace SMSService.API.Common
 {
     public static class Utilities
     {
-       
+
         public static bool ValidetAppAndSender(int AppId, string Sender)
         {
             using (SMSContext db = new SMSContext())
             {
-                var result= db.ApplicationSenders.Any(c => c.AppId == AppId && c.SenderId == Sender);
+                var result = db.ApplicationSenders.Any(c => c.AppId == AppId && c.SenderId == Sender);
                 return result;
             }
 
@@ -34,7 +34,7 @@ namespace SMSService.API.Common
             Configuration configuration = LoadJson();
             string FullURL = configuration.Domain + configuration.URI + "username=" + configuration.UserName + "&password=" + configuration.Password + "&language=" + SMSClient.Language.GetHashCode() + "&sender=" + SMSClient.Sender +
             "&mobile=" + String.Concat(string.Join(",", SMSClient.MobileNumbers)) + "&message=" + SMSClient.TextMessage;
-         //   + "&DelayUntil=" + SMSClient.DelayUntil.Year + "-"+ SMSClient.DelayUntil.Month + "-" + SMSClient.DelayUntil.Day + "-" + SMSClient.DelayUntil.Hour + "-" + SMSClient.DelayUntil.Minute;
+            //   + "&DelayUntil=" + SMSClient.DelayUntil.Year + "-"+ SMSClient.DelayUntil.Month + "-" + SMSClient.DelayUntil.Day + "-" + SMSClient.DelayUntil.Hour + "-" + SMSClient.DelayUntil.Minute;
 
             RestClient client = new RestClient();
 
@@ -49,7 +49,7 @@ namespace SMSService.API.Common
         public static Configuration LoadJson()
         {
             string directory = System.AppDomain.CurrentDomain.BaseDirectory;
-            string path = Path.Combine(directory, "Common\\ConfigSMS.json") ;
+            string path = Path.Combine(directory, "Common\\ConfigSMS.json");
             using (StreamReader file = new StreamReader(path))
             {
                 string json = file.ReadToEnd();
