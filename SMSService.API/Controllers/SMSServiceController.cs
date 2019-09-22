@@ -14,19 +14,6 @@ namespace SMSService.API.Controllers
     public class SMSServiceController : ApiController
     {
         private HttpResponseMessage Response = new HttpResponseMessage();
-        
-
-        // GET: api/SMSService
-        public IEnumerable<string> Get()
-        {
-            return new string[] { "value1", "value2" };
-        }
-
-        // GET: api/SMSService/5
-        public string Get(int id)
-        {
-            return "value";
-        }
 
         // POST: api/SMSService
 
@@ -103,16 +90,6 @@ namespace SMSService.API.Controllers
                     };
                 }
             }
-        }
-
-        // PUT: api/SMSService/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
-
-        // DELETE: api/SMSService/5
-        public void Delete(int id)
-        {
         }
     }
 }
