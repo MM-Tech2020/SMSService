@@ -28,7 +28,7 @@ namespace SMSService.API.Common
             }
 
         }
-        public static IRestResponse CallSMSMisrProvider(SMSClientDTO SMSClient)
+        public static IRestResponse CallSMSVasProvider(SMSClientDTO SMSClient)
         {
                Configuration configuration = GetConfiguration(SMSClient.AppId, SMSClient.Sender);
             string FullURL = configuration.Domain + configuration.URI + "UserName=" + configuration.UserName + "&Password=" + configuration.Password + "&SMSLang=E&SMSSender=" + SMSClient.Sender +
@@ -46,7 +46,7 @@ namespace SMSService.API.Common
             return response;
         }
 
-        public static IRestResponse CallSMSVasProvider(SMSClientDTO SMSClient)
+        public static IRestResponse CallSMSMisrProvider(SMSClientDTO SMSClient)
         {
 
             Configuration configuration = GetConfiguration(SMSClient.AppId, SMSClient.Sender);

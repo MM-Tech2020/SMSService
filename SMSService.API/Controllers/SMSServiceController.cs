@@ -77,7 +77,7 @@ namespace SMSService.API.Controllers
                     Respons Respons = new Respons()
                         {
                             ResponseObject = ResponseContent.Content,
-                            StatusId = db.Status.Where(c => c.StatusCode == result.code).Select(s => s.Id).FirstOrDefault(),
+                           // StatusId = db.Status.Where(c => c.StatusCode == result.code).Select(s => s.Id).FirstOrDefault(),
 
                         };
                     
