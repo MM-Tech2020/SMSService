@@ -9,6 +9,7 @@ using System.Net;
 using System.Net.Http;
 using System.Reflection;
 using System.Web.Http;
+using System.Xml.Linq;
 
 namespace SMSService.API.Controllers
 {
@@ -72,10 +73,12 @@ namespace SMSService.API.Controllers
                     //MethodInfo method = Utilities.;
                     //object result = method.Invoke(service, new object[] { request });
                     //IRestResponse ResponseContent = Utilities.CallSMSMisrProvider(SMSData);
-                    SMSResponseDTO result = Newtonsoft.Json.JsonConvert.DeserializeObject<SMSResponseDTO>(ResponseContent.Content);
+                    XDocument xdoc = XDocument.Parse(ResponseContent.Content);
+                //    var result = Newtonsoft.Json.JsonConvert.DeserializeObject(xdoc.ToString());
 
                     Respons Respons = new Respons()
                         {
+
                             ResponseObject = ResponseContent.Content,
                            // StatusId = db.Status.Where(c => c.StatusCode == result.code).Select(s => s.Id).FirstOrDefault(),
 
