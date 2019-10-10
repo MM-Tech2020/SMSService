@@ -10,8 +10,9 @@ namespace SMSService.API.Models
         public int AppId  { get; set; }
         public DateTime DelayUntil  { get; set; }
         public string Sender { get; set; }
+        public string Identity { get; set; }
         public List<string> MobileNumbers { get; set; }
         public DateTime RealTime { get; set; }
-
+        
     }
 }

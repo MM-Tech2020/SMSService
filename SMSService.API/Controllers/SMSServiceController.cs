@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Reflection;
 using System.Web.Http;
 
 namespace SMSService.API.Controllers
@@ -32,7 +33,10 @@ namespace SMSService.API.Controllers
 
         public HttpResponseMessage Post([FromBody] SMSClientDTO SMSData)
         {
-            if (!Utilities.ValidetAppAndSender(SMSData.AppId, SMSData.Sender))
+           
+            string functionCall = Utilities.ValidetAppAndSender(SMSData.AppId, SMSData.Sender);
+         
+            if (string.IsNullOrEmpty(functionCall))
             {
                 return new HttpResponseMessage
                 {
@@ -72,16 +76,24 @@ namespace SMSService.API.Controllers
                 };
                 db.OutGoingSMSBasicInfoes.Add(SMSInfo);
                 
-                    db.SaveChanges();
-          
-               IRestResponse ResponseContent = Utilities.CallSMSServiceProvider(SMSData);
-                SMSResponseDTO result = Newtonsoft.Json.JsonConvert.DeserializeObject<SMSResponseDTO>(ResponseContent.Content);
-                    Respons Respons = new Respons()
-                {
-                    ResponseObject = ResponseContent.Content,
-                    StatusId = db.Status.Where(c => c.StatusCode == result.code).Select(s => s.Id).FirstOrDefault(),
+                   db.SaveChanges();
+                    var CommonClasses =typeof(Utilities);
+                   
+                    
+                   IRestResponse ResponseContent = (IRestResponse)CommonClasses.GetMethod(functionCall).Invoke(null, new object[] { SMSData });
 
-                };
+                    //MethodInfo method = Utilities.;
+                    //object result = method.Invoke(service, new object[] { request });
+                    //IRestResponse ResponseContent = Utilities.CallSMSMisrProvider(SMSData);
+                    SMSResponseDTO result = Newtonsoft.Json.JsonConvert.DeserializeObject<SMSResponseDTO>(ResponseContent.Content);
+
+                    Respons Respons = new Respons()
+                        {
+                            ResponseObject = ResponseContent.Content,
+                            StatusId = db.Status.Where(c => c.StatusCode == result.code).Select(s => s.Id).FirstOrDefault(),
+
+                        };
+                    
                     db.Responses.Add(Respons);
                     db.SaveChanges();
                     SMSInfo.ResponseId = Respons.Id;

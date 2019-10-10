@@ -8,7 +8,7 @@ namespace SMSService.DBAccessLayer.Model
     public partial class SMSContext : DbContext
     {
         public SMSContext()
-            : base("name=SMSContext")
+            : base("name=SMSContextDB")
         {
         }
 
@@ -17,6 +17,7 @@ namespace SMSService.DBAccessLayer.Model
         public virtual DbSet<InCommingSM> InCommingSMS { get; set; }
         public virtual DbSet<MobileNumber> MobileNumbers { get; set; }
         public virtual DbSet<OutGoingSMSBasicInfo> OutGoingSMSBasicInfoes { get; set; }
+        public virtual DbSet<Provider> Providers { get; set; }
         public virtual DbSet<Respons> Responses { get; set; }
         public virtual DbSet<SMSSenderNumber> SMSSenderNumbers { get; set; }
         public virtual DbSet<Status> Status { get; set; }

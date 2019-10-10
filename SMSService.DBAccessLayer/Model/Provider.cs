@@ -6,33 +6,31 @@ namespace SMSService.DBAccessLayer.Model
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class ApplicationSender
+    public partial class Provider
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public ApplicationSender()
+        public Provider()
         {
-            OutGoingSMSBasicInfoes = new HashSet<OutGoingSMSBasicInfo>();
+            ApplicationSenders = new HashSet<ApplicationSender>();
         }
 
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int Id { get; set; }
 
-        public int AppId { get; set; }
-
         [Required]
-        [StringLength(20)]
-        public string SenderId { get; set; }
-
-        public int? ProviderId { get; set; }
+        [StringLength(100)]
+        public string Domain { get; set; }
 
         [StringLength(100)]
-        public string FunctionCall { get; set; }
+        public string URI { get; set; }
 
-        public virtual Application Application { get; set; }
+        [StringLength(50)]
+        public string UserName { get; set; }
 
-        public virtual Provider Provider { get; set; }
+        [StringLength(32)]
+        public string Password { get; set; }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OutGoingSMSBasicInfo> OutGoingSMSBasicInfoes { get; set; }
+        public virtual ICollection<ApplicationSender> ApplicationSenders { get; set; }
     }
 }
